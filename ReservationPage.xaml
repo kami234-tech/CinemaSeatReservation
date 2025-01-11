@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CinemaSeatReservation.ReservationPage"
+             Title="Make a Reservation">
+    <StackLayout Padding="20" Spacing="15">
+        <Label Text="Reserve Seats" FontSize="Large" HorizontalOptions="Center" />
+
+        <Label Text="Selected Movie" FontSize="Medium" />
+        <Label x:Name="MovieTitleLabel" FontSize="Medium" FontAttributes="Bold" />
+
+        <!-- Seat Selection Section -->
+        <Label Text="Select Seats" FontSize="Medium" />
+        <Grid x:Name="SeatGrid" Padding="5" RowSpacing="5" ColumnSpacing="5" />
+
+        <!-- Time Picker -->
+        <Label Text="Select Time" FontSize="Medium" />
+        <Picker x:Name="TimePicker" Title="Select Hour">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>10:00 AM</x:String>
+                    <x:String>1:00 PM</x:String>
+                    <x:String>4:00 PM</x:String>
+                    <x:String>7:00 PM</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+
+        <Button Text="Confirm Reservation" Clicked="OnConfirmClicked" BackgroundColor="Green" TextColor="White" />
+    </StackLayout>
+</ContentPage>

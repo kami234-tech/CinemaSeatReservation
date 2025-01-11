@@ -10,5 +10,6 @@
         <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" />
 
         <Button Text="Login" Clicked="OnLoginClicked" BackgroundColor="Green" TextColor="White" />
+        <Button Text="Register" Clicked="OnRegisterClicked" /
     </StackLayout>
 </ContentPage>

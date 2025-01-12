@@ -7,26 +7,9 @@
         <StackLayout Padding="20" Spacing="15">
             <Label Text="Admin Dashboard" FontSize="Large" HorizontalOptions="Center" />
 
-            <!-- Add Movie Section -->
-            <Label Text="Add a Movie" FontSize="Medium" />
-            <Entry x:Name="TitleEntry" Placeholder="Movie Title" />
-            <Entry x:Name="GenreEntry" Placeholder="Genre" />
-            <Entry x:Name="DurationEntry" Placeholder="Duration (minutes)" Keyboard="Numeric" />
-            <Editor x:Name="DescriptionEditor" Placeholder="Description" AutoSize="TextChanges" />
-
-            <!-- Image Upload Section -->
-            <Image x:Name="SelectedImage" HeightRequest="200" WidthRequest="200" Aspect="AspectFill" />
-            <Button Text="Upload Photo" Clicked="OnUploadPhotoClicked"
-                    BackgroundColor="Blue" TextColor="White" CornerRadius="10" />
-
-            <Button Text="Add Movie" Clicked="OnAddMovieClicked" BackgroundColor="Green" TextColor="White" />
             <!-- Admin Actions Section -->
-            <Label Text="Admin Actions" FontSize="Medium" />
-            <Button Text="Add Hall" Clicked="OnAddHallClicked" />
-            <Button Text="View Reservations" Clicked="OnViewReservationsClicked" />
-            <Button Text="Correlate Movie to Hall" Clicked="OnCorrelateMovieToHallClicked" />
+            <Button Text="Create Movie" Clicked="OnCreateMovieClicked" BackgroundColor="Green" TextColor="White" />
 
-            <!-- Movie List Section -->
             <Label Text="Movies" FontSize="Medium" HorizontalOptions="Center" />
             <ListView x:Name="MoviesListView" ItemSelected="OnMovieSelected">
                 <ListView.ItemTemplate>
@@ -44,6 +27,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackLayout>
+    </StackLayout>
     </ScrollView>
 </ContentPage>

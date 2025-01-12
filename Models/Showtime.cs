@@ -16,7 +16,7 @@ namespace CinemaSeatReservation.Models
         public DateTime DateTime { get; set; } // Date and time of the show
 
         // Navigation properties (optional)
-        public Movie Movie { get; set; }
-        public Hall Hall { get; set; }
+        //public Movie Movie { get; set; }
+        //public Hall Hall { get; set; }
     }
 }

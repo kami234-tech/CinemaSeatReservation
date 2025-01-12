@@ -9,7 +9,7 @@
         <Entry x:Name="NameEntry" Placeholder="Full Name" />
         <Entry x:Name="EmailEntry" Placeholder="Email" Keyboard="Email" />
         <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" />
-        <Picker x:Name="RolePicker" Title="Select Role">
+        <Picker x:Name="RolePicker" Title="Select Role" SelectedIndexChanged="OnRoleChanged">
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
                     <x:String>user</x:String>
@@ -17,6 +17,9 @@
                 </x:Array>
             </Picker.ItemsSource>
         </Picker>
+        <!-- Secret Password Entry -->
+        <Entry x:Name="SecretPasswordEntry" Placeholder="Enter Secret Password" IsPassword="True" IsVisible="False" />
+
         <Button Text="Register" Clicked="OnRegisterClicked" />
         <Label x:Name="ErrorLabel" TextColor="Red" IsVisible="False" />
     </StackLayout>

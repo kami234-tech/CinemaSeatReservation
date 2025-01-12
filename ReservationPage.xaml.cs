@@ -5,53 +5,71 @@ public partial class ReservationPage : ContentPage
 {
     private Movie _movie;
     private User _user;
-    private List<string> _selectedSeats = new List<string>(); // To track selected seats
-
+    private Showtime? _selectedShowtime;
+    private List<string> _selectedSeats = new List<string>();
     public ReservationPage(User user, Movie movie)
 	{
 		InitializeComponent();
         _user = user;
         _movie = movie;
         MovieTitleLabel.Text = movie.Title;
+         _selectedShowtime = null;
+        LoadShowtimes();
+    }
+    private void LoadShowtimes()
+    {
+        var showtimes = App.Database.Table<Showtime>()
+            .Where(s => s.MovieId == _movie.Id)
+            .ToList();
+
+        ShowtimePicker.ItemsSource = showtimes;
+        ShowtimePicker.ItemDisplayBinding = new Binding("DateTime", stringFormat: "{0:MM/dd/yyyy hh:mm tt}");
+    }
+
+    private async void OnShowtimeSelected(object sender, EventArgs e)
+    {
+        _selectedShowtime = ShowtimePicker.SelectedItem as Showtime;
+        if (_selectedShowtime == null)
+        {
+            await DisplayAlert("Error", "Please select a valid showtime.", "OK");
+            return;
+        }
+
+        SeatGrid.Children.Clear();
         GenerateSeatGrid();
     }
+
     private void GenerateSeatGrid()
     {
-        // Create a 5x5 seat grid
-        int rows = 5;
-        int columns = 5;
+        if (_selectedShowtime == null) return;
 
-        // Define grid rows and columns
-        for (int row = 0; row < rows; row++)
-        {
-            SeatGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-        }
-        for (int col = 0; col < columns; col++)
-        {
-            SeatGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-        }
+        // Fetch reserved seats for the selected showtime
+        var reservedSeats = App.Database.Table<Reservation>()
+            .Where(r => r.ShowtimeId == _selectedShowtime.Id)
+            .SelectMany(r => r.Seats.Split(','))
+            .ToList();
 
-        // Add buttons to the grid
-        for (int row = 0; row < rows; row++)
+        for (int row = 0; row < 5; row++)
         {
-            for (int col = 0; col < columns; col++)
+            for (int col = 0; col < 5; col++)
             {
-                string seatId = $"{(char)('A' + row)}{col + 1}"; // e.g., A1, A2, B1, etc.
+                string seatId = $"{(char)('A' + row)}{col + 1}";
 
                 var button = new Button
                 {
                     Text = seatId,
-                    BackgroundColor = Colors.LightGray,
+                    BackgroundColor = reservedSeats.Contains(seatId) ? Colors.Red : Colors.LightGray,
                     TextColor = Colors.Black,
-                    CornerRadius = 5
+                    CornerRadius = 5,
+                    IsEnabled = !reservedSeats.Contains(seatId) // Disable if reserved
                 };
 
                 button.Clicked += (sender, e) => OnSeatSelected(button, seatId);
 
-                // Correct parameter order for Add method: (child, column, row)
-                Grid.SetColumn(button, col); // Set column position
-                Grid.SetRow(button, row);   // Set row position
-                SeatGrid.Children.Add(button); // Add the button to the grid
+                // Add the button to the Grid
+                SeatGrid.Children.Add(button);
+                Grid.SetRow(button, row); // Specify the row
+                Grid.SetColumn(button, col); // Specify the column
             }
         }
     }
@@ -81,9 +99,9 @@ public partial class ReservationPage : ContentPage
             return;
         }
 
-        if (TimePicker.SelectedItem == null)
+        if (_selectedShowtime == null)
         {
-            await DisplayAlert("Error", "Please select a time.", "OK");
+            await DisplayAlert("Error", "Please select a showtime.", "OK");
             return;
         }
 
@@ -91,14 +109,14 @@ public partial class ReservationPage : ContentPage
         {
             UserId = _user.Id,
             MovieId = _movie.Id,
-            Seats = string.Join(",", _selectedSeats), // Save selected seats as comma-separated values
-            ReservationDate = DateTime.Now,
-            Showtime = TimePicker.SelectedItem.ToString()
+            ShowtimeId = _selectedShowtime.Id,
+            //Seats = string.Join(",", _selectedSeats),
+            //ReservationDate = DateTime.Now
         };
 
         App.Database.Insert(reservation);
 
-        await DisplayAlert("Success", $"Reservation Confirmed!\nSeats: {reservation.Seats}\nTime: {reservation.Showtime}", "OK");
+        await DisplayAlert("Success", $"Reservation Confirmed!\nSeats: {reservation.Seats}\nTime: {_selectedShowtime.DateTime}", "OK");
         await Navigation.PopAsync(); // Navigate back to the UserPage
     }
 }

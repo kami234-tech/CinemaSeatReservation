@@ -13,8 +13,11 @@ namespace CinemaSeatReservation.Models
         public int Id { get; set; }
         public int UserId { get; set; }
         public int MovieId { get; set; }
+        public int ShowtimeId { get; set; }
         public string Seats { get; set; } // Reserved seats
-        public DateTime ReservationDate { get; set; } // Reservation creation timestamp
-        public string Showtime { get; set; } // Time selected by the user
+        //public DateTime ReservationDate { get; set; } // Reservation creation timestamp
+        //public User User { get; set; }
+        //public Movie Movie { get; set; }
+        //public Showtime Showtime { get; set; }
     }
 }

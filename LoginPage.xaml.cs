@@ -1,5 +1,6 @@
-namespace CinemaSeatReservation;
 using CinemaSeatReservation.Models;
+namespace CinemaSeatReservation;
+
 public partial class LoginPage : ContentPage
 {
 	public LoginPage()

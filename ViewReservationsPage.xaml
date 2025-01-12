@@ -8,7 +8,14 @@
         <ListView x:Name="ReservationsListView">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding MovieTitle}" Detail="{Binding Seats}" />
+                    <ViewCell>
+                        <StackLayout Padding="10">
+                            <Label Text="{Binding MovieTitle}" FontAttributes="Bold" />
+                            <Label Text="{Binding HallName}" />
+                            <Label Text="{Binding DateTime, StringFormat='{0:MM/dd/yyyy hh:mm tt}'}" />
+                            <Label Text="Seats: {Binding Seats}" />
+                        </StackLayout>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

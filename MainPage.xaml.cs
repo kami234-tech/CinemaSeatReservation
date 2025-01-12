@@ -4,10 +4,16 @@
     {
         public MainPage()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception during MainPage initialization: {ex.Message}");
+            }
+
+
         }
-
-        
     }
-
 }

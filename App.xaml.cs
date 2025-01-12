@@ -9,13 +9,27 @@ namespace CinemaSeatReservation
         public App()
         {
             InitializeComponent();
+            SQLitePCL.Batteries_V2.Init();
             string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Cinema.db");
-            Database = new SQLiteConnection(dbPath);
+            Console.WriteLine($"Database Path: {dbPath}");
+            try
+            {
+                Database = new SQLiteConnection(dbPath);
+                Console.WriteLine("SQLite database initialized successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"SQLite initialization failed: {ex.Message}");
+            }
 
-            // Create tables
+            // Drop and recreate the User table
             Database.CreateTable<User>();
+
+            // Create other tables
             Database.CreateTable<Movie>();
+            Database.CreateTable<Showtime>();
             Database.CreateTable<Reservation>();
+
 
             SeedData();
 
@@ -26,6 +40,12 @@ namespace CinemaSeatReservation
         {
             try
             {
+                // Drop and recreate the User table (ONLY FOR DEVELOPMENT!)
+#if DEBUG
+                Database.DropTable<User>(); // WARNING: Deletes all existing User data
+                Database.CreateTable<User>();
+#endif
+
                 // Check if users already exist
                 if (Database.Table<User>().Count() == 0)
                 {

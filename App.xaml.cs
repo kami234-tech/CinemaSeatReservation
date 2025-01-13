@@ -5,30 +5,24 @@ namespace CinemaSeatReservation
 {
     public partial class App : Application
     {
-        public static SQLiteConnection Database { get; private set; }
+        public static User? CurrentUser { get; set; } = null; // Allow nullable or provide a default value
+        public static SQLiteConnection? Database { get; set; } = null; // Allow nullable or initialize elsewhere
+
         public App()
         {
             InitializeComponent();
             SQLitePCL.Batteries_V2.Init();
             string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Cinema.db");
+
+            // Initialize the SQLite connection
+            Database = new SQLiteConnection(dbPath);
             Console.WriteLine($"Database Path: {dbPath}");
-            try
-            {
-                Database = new SQLiteConnection(dbPath);
-                Console.WriteLine("SQLite database initialized successfully.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"SQLite initialization failed: {ex.Message}");
-            }
-
-            // Drop and recreate the User table
-            Database.CreateTable<User>();
-
             // Create other tables
+            Database.CreateTable<User>();
             Database.CreateTable<Movie>();
             Database.CreateTable<Showtime>();
             Database.CreateTable<Reservation>();
+            Database.CreateTable<Hall>();
 
 
             SeedData();
@@ -40,23 +34,20 @@ namespace CinemaSeatReservation
         {
             try
             {
-                // Drop and recreate the User table (ONLY FOR DEVELOPMENT!)
-#if DEBUG
-                Database.DropTable<User>(); // WARNING: Deletes all existing User data
-                Database.CreateTable<User>();
-#endif
-
-                // Check if users already exist
-                if (Database.Table<User>().Count() == 0)
+                // Check if users already exist before inserting default data
+                if (!Database.Table<User>().Any())
                 {
-                    // Insert default admin and user
                     Database.Insert(new User { Name = "Admin", Email = "admin@cinema.com", Password = "admin", Role = "admin" });
                     Database.Insert(new User { Name = "User", Email = "user@cinema.com", Password = "user", Role = "user" });
+                    Console.WriteLine("Default users added.");
+                }
+                else
+                {
+                    Console.WriteLine("Default users already exist. No need to add.");
                 }
             }
             catch (Exception ex)
             {
-                // Log the error to console or debug output
                 Console.WriteLine($"Error during SeedData: {ex.Message}");
             }
         }

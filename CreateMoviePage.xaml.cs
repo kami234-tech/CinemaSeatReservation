@@ -33,34 +33,47 @@ public partial class CreateMoviePage : ContentPage
 
     private async void OnAddMovieClicked(object sender, EventArgs e)
     {
-        var title = TitleEntry.Text;
-        var genre = GenreEntry.Text;
-        var description = DescriptionEditor.Text;
-        int duration;
-
-        if (int.TryParse(DurationEntry.Text, out duration) &&
-            !string.IsNullOrWhiteSpace(title) &&
-            !string.IsNullOrWhiteSpace(genre) &&
-            !string.IsNullOrWhiteSpace(_selectedPhotoPath))
+        try
         {
-            var movie = new Movie
+            var title = TitleEntry.Text;
+            var genre = GenreEntry.Text;
+            var description = DescriptionEditor.Text;
+            int duration;
+
+            Console.WriteLine("Validating input...");
+            Console.WriteLine($"Title: {title}, Genre: {genre}, Duration: {DurationEntry.Text}, PhotoPath: {_selectedPhotoPath}");
+
+            if (int.TryParse(DurationEntry.Text, out duration) &&
+                !string.IsNullOrWhiteSpace(title) &&
+                !string.IsNullOrWhiteSpace(genre) &&
+                !string.IsNullOrWhiteSpace(_selectedPhotoPath))
             {
-                Title = title,
-                Genre = genre,
-                Duration = duration,
-                Description = description,
-                PhotoPath = _selectedPhotoPath
-            };
+                var movie = new Movie
+                {
+                    Title = title,
+                    Genre = genre,
+                    Duration = duration,
+                    Description = description,
+                    PhotoPath = _selectedPhotoPath
+                };
 
-            App.Database.Insert(movie);
+                Console.WriteLine("Inserting movie into database...");
+                App.Database.Insert(movie);
 
-            await DisplayAlert("Success", "Movie added successfully!", "OK");
-            await Navigation.PopAsync();
+                await DisplayAlert("Success", "Movie added successfully!", "OK");
+                await Navigation.PopAsync();
+            }
+            else
+            {
+                Console.WriteLine("Validation failed.");
+                ErrorLabel.Text = "Please fill out all fields and upload a photo.";
+                ErrorLabel.IsVisible = true;
+            }
         }
-        else
+        catch (Exception ex)
         {
-            ErrorLabel.Text = "Please fill out all fields and upload a photo.";
-            ErrorLabel.IsVisible = true;
+            Console.WriteLine($"Error: {ex.Message}");
+            await DisplayAlert("Error", $"Failed to add movie: {ex.Message}", "OK");
         }
     }
 }

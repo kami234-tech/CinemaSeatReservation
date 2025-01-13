@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CinemaSeatReservation.SeatSelectionPage"
+             Title="Select Seats">
+    <StackLayout Padding="20" Spacing="15">
+        <Label Text="Select Your Seats" FontSize="Large" HorizontalOptions="Center" />
+        <Grid x:Name="SeatGrid" RowSpacing="5" ColumnSpacing="5" />
+        <Button Text="Confirm Reservation" Clicked="OnConfirmReservationClicked" BackgroundColor="Green" TextColor="White" />
+        <Button 
+        Text="Generate Seat Layout JSON"
+        Clicked="OnGenerateSeatLayoutJsonClicked"
+        BackgroundColor="Blue"
+        TextColor="White" />
+    </StackLayout>
+</ContentPage>

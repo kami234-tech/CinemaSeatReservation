@@ -3,11 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CinemaSeatReservation.AddHallPage"
              Title="Add Hall">
-    <StackLayout Padding="20" Spacing="15">
-        <Label Text="Add a Hall" FontSize="Large" HorizontalOptions="Center" />
+
+    <StackLayout Padding="20" Spacing="10">
+        <!-- Hall Name Entry -->
         <Entry x:Name="HallNameEntry" Placeholder="Hall Name" />
+
+        <!-- Capacity Entry -->
         <Entry x:Name="CapacityEntry" Placeholder="Capacity" Keyboard="Numeric" />
-        <Editor x:Name="LayoutEditor" Placeholder="Seat Layout (e.g., JSON format)" AutoSize="TextChanges" />
-        <Button Text="Add Hall" Clicked="OnAddHallClicked" />
+
+        <!-- Use Default Layout Checkbox -->
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+            <CheckBox x:Name="UseDefaultLayoutCheckbox" />
+            <Label Text="Use Default Layout" VerticalOptions="Center" />
+        </StackLayout>
+
+        <!-- Add Hall Button -->
+        <Button Text="Add Hall"
+                Clicked="OnAddHallClicked"
+                BackgroundColor="Green"
+                TextColor="White" />
     </StackLayout>
 </ContentPage>

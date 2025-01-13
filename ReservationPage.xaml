@@ -4,18 +4,10 @@
              x:Class="CinemaSeatReservation.ReservationPage"
              Title="Make a Reservation">
     <StackLayout Padding="20" Spacing="15">
-        <Label Text="Reserve Seats" FontSize="Large" HorizontalOptions="Center" />
-
-        <Label Text="Selected Movie" FontSize="Medium" />
-        <Label x:Name="MovieTitleLabel" FontSize="Medium" FontAttributes="Bold" />
-
-        <Label Text="Select Showtime" FontSize="Medium" />
+        <Label Text="Make a Reservation" FontSize="Large" HorizontalOptions="Center" />
+        <Label x:Name="MovieTitleLabel" FontSize="Medium" HorizontalOptions="Center" />
         <Picker x:Name="ShowtimePicker" Title="Select Showtime" SelectedIndexChanged="OnShowtimeSelected" />
-
-        <Label Text="Select Seats" FontSize="Medium" />
-        <Grid x:Name="SeatGrid" Padding="5" RowSpacing="5" ColumnSpacing="5" />
-
-        <Button Text="Confirm Reservation" Clicked="OnConfirmClicked" BackgroundColor="Green" TextColor="White" />
+        <Grid x:Name="SeatGrid" Padding="10" />
+        <Button Text="Confirm Reservation" BackgroundColor="Green" TextColor="White" Clicked="OnConfirmClicked" />
     </StackLayout>
-
 </ContentPage>

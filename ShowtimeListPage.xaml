@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CinemaSeatReservation.ShowtimeListPage"
+             Title="Showtimes">
+    <StackLayout Padding="20" Spacing="15">
+        <Label Text="Available Showtimes" FontSize="Large" HorizontalOptions="Center" />
+        <ListView x:Name="ShowtimeListView" ItemSelected="OnShowtimeSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="10">
+                            <Label Text="{Binding MovieTitle}" FontAttributes="Bold" />
+                            <Label Text="{Binding HallName}" />
+                            <Label Text="{Binding DateTime, StringFormat='{0:MM/dd/yyyy hh:mm tt}'}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

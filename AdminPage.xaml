@@ -9,7 +9,12 @@
 
             <!-- Admin Actions Section -->
             <Button Text="Create Movie" Clicked="OnCreateMovieClicked" BackgroundColor="Green" TextColor="White" />
-
+            <Button Text="Add Hall" Clicked="OnAddHallClicked" />
+            <Button Text="View Reservations" Clicked="OnViewReservationsClicked" />
+            <Button Text="Create Showtime" Clicked="OnCreateShowtimeClicked" BackgroundColor="Blue" TextColor="White" />
+            <Button Text="View Showtimes" Clicked="OnViewShowtimesClicked" />
+            <Button Text="View Halls" Clicked="OnViewHallsClicked" />
+            
             <Label Text="Movies" FontSize="Medium" HorizontalOptions="Center" />
             <ListView x:Name="MoviesListView" ItemSelected="OnMovieSelected">
                 <ListView.ItemTemplate>
@@ -27,6 +32,23 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-    </StackLayout>
+            <!-- Hover Card -->
+            <Frame x:Name="MovieDetailsFrame"
+                   Padding="10"
+                   BackgroundColor="LightGray"
+                   BorderColor="Black"
+                   HasShadow="True"
+                   CornerRadius="10"
+                   IsVisible="False"
+                   VerticalOptions="End"
+                   HorizontalOptions="Center">
+                <StackLayout>
+                    <Label x:Name="MovieDetailsTitle" FontSize="Large" FontAttributes="Bold" />
+                    <Label x:Name="MovieDetailsGenre" FontSize="Small" />
+                    <Label x:Name="MovieDetailsDuration" FontSize="Small" />
+                    <Label x:Name="MovieDetailsDescription" FontSize="Small" />
+                </StackLayout>
+            </Frame>
+        </StackLayout>
     </ScrollView>
 </ContentPage>

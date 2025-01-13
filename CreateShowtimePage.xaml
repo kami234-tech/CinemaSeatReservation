@@ -3,17 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CinemaSeatReservation.CreateShowtimePage"
              Title="Create Showtime">
-    <ScrollView>
-        <StackLayout Padding="20" Spacing="15">
-            <Label Text="Create Showtime" FontSize="Large" HorizontalOptions="Center" />
+    <StackLayout Padding="20" Spacing="15">
+        <Label Text="Create a Showtime" FontSize="Large" HorizontalOptions="Center" />
 
-            <Picker x:Name="MoviePicker" Title="Select Movie" />
-            <Picker x:Name="HallPicker" Title="Select Hall" />
-            <DatePicker x:Name="DatePicker" />
-            <TimePicker x:Name="TimePicker" />
+        <Label Text="Select Movie" FontSize="Medium" />
+        <Picker x:Name="MoviePicker" Title="Select Movie" />
 
-            <Button Text="Create Showtime" Clicked="OnCreateShowtimeClicked" BackgroundColor="Blue" TextColor="White" />
-            <Label x:Name="ErrorLabel" TextColor="Red" IsVisible="False" />
-        </StackLayout>
-    </ScrollView>
+        <Label Text="Select Hall" FontSize="Medium" />
+        <Picker x:Name="HallPicker" Title="Select Hall" />
+
+        <Label Text="Select Date" FontSize="Medium" />
+        <DatePicker x:Name="ShowtimeDatePicker" />
+
+        <Label Text="Select Time Slot" FontSize="Medium" />
+        <!-- Picker for Time Slots -->
+        <Picker x:Name="TimeSlotPicker" Title="Select Time Slot" />
+
+        <Button Text="Create Showtime" Clicked="OnCreateShowtimeClicked" BackgroundColor="Green" TextColor="White" />
+    </StackLayout>
 </ContentPage>

@@ -25,4 +25,9 @@ public partial class UserPage : ContentPage
             await Navigation.PushAsync(new ReservationPage(_user, selectedMovie));
         }
     }
+    private async void OnViewPastReservationsClicked(object sender, EventArgs e)
+    {
+        // Navigate to the past reservations page
+        await Navigation.PushAsync(new PastReservationsPage(_user));
+    }
 }

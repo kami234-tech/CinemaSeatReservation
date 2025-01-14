@@ -2,23 +2,22 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CinemaSeatReservation.CreateMoviePage"
-             Title="Create Movie">
-    <ScrollView>
-        <StackLayout Padding="20" Spacing="15">
-            <Label Text="Add a New Movie" FontSize="Large" HorizontalOptions="Center" />
+             Title="Add Movie">
 
-            <Entry x:Name="TitleEntry" Placeholder="Movie Title" />
-            <Entry x:Name="GenreEntry" Placeholder="Genre" />
-            <Entry x:Name="DurationEntry" Placeholder="Duration (minutes)" Keyboard="Numeric" />
-            <Editor x:Name="DescriptionEditor" Placeholder="Description" AutoSize="TextChanges" />
+    <StackLayout Padding="20" Spacing="10">
+        <Entry x:Name="TitleEntry" Placeholder="Movie Title" />
+        <Entry x:Name="GenreEntry" Placeholder="Genre" />
+        <Entry x:Name="DurationEntry" Placeholder="Duration (in minutes)" Keyboard="Numeric" />
+        <Editor x:Name="DescriptionEditor" Placeholder="Movie Description" HeightRequest="100" />
+        
+        <Button Text="Upload Photo" Clicked="OnUploadPhotoClicked" />
+        <Image x:Name="SelectedImage" HeightRequest="200" Aspect="AspectFill" />
 
-            <!-- Image Upload Section -->
-            <Image x:Name="SelectedImage" HeightRequest="200" WidthRequest="200" Aspect="AspectFill" />
-            <Button Text="Upload Photo" Clicked="OnUploadPhotoClicked" BackgroundColor="Blue" TextColor="White" CornerRadius="10" />
+        <Label x:Name="ErrorLabel" TextColor="Red" IsVisible="False" />
 
-            <Button Text="Add Movie" Clicked="OnAddMovieClicked" BackgroundColor="Green" TextColor="White" />
-
-            <Label x:Name="ErrorLabel" TextColor="Red" IsVisible="False" />
-        </StackLayout>
-    </ScrollView>
+        <Button Text="Add Movie"
+                BackgroundColor="Green"
+                TextColor="White"
+                Clicked="OnAddMovieClicked" />
+    </StackLayout>
 </ContentPage>
